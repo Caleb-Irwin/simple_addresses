@@ -10,7 +10,9 @@
 </main>
 
 <footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	<h2>
+		Made By <a href="https://calebirwin.ca/" target="_blank">Caleb Irwin</a>
+	</h2>
 </footer>
 
 <style>
