@@ -25,19 +25,27 @@
 	import type { Item } from '$lib/types';
 	import { each } from 'svelte/internal';
 
-	import pdfMake from 'pdfmake/build/pdfmake';
-	import pdfFonts from 'pdfmake/build/vfs_fonts';
-	pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
+	import pdfMake from 'pdfmake';
 	import jszip from 'jszip';
+
+	pdfMake.fonts = {
+		// download default Roboto font from cdnjs.com
+		Roboto: {
+			normal:
+				'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
+			bold: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf'
+			// italics:
+			// 	'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
+			// bolditalics:
+			// 	'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf'
+		}
+	};
 
 	export let items: Item[] = [];
 	let maxPerTerritory = 20,
 		baseName = 'TITLE';
 
 	function divide(): { title: string; items: Item[] }[] {
-		console.log(baseName);
-
 		let out = [];
 		let i = 0;
 		const total = Math.ceil(items.length / maxPerTerritory);
@@ -90,12 +98,15 @@
 							return {
 								text: `${v.Text} (${v.Description})`,
 								fontSize: 15,
-								bold: true,
-								lineHeight: 1.5
+								lineHeight: 1.5,
+								bold: true
 							};
 						})
 					}
-				]
+				],
+				defaultStyle: {
+					font: 'Roboto'
+				}
 			};
 			pdfMake.createPdf(doc).getBlob(async (blob) => {
 				zip.file(t.title + '.pdf', blob);
