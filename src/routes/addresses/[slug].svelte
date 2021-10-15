@@ -49,6 +49,7 @@
   let download = null;
 
   async function startDownload() {
+    territorys = divide();
     if (download === null) {
       download = (await import('./_makeZip')).download;
     }
