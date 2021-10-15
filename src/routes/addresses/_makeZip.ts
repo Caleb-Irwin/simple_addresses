@@ -41,14 +41,13 @@ export const download = async (territorys: { title: string; items: Item[] }[]): 
           fontSize: 25,
           alignment: 'center',
           lineHeight: 1,
-          decoration: 'underline',
           bold: true
         },
         ' ',
         {
           ul: t.items.map((v) => {
             return {
-              text: `${v.Text} (${v.Description})`,
+              text: `${v.Text} ${v.Description}`,
               fontSize: 15,
               lineHeight: 1.5,
               bold: true
