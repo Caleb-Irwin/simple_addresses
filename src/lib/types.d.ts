@@ -18,3 +18,8 @@ export interface Item {
   Highlight: string;
   Description: string;
 }
+
+export interface Territory {
+  title: string;
+  items: Item[];
+}

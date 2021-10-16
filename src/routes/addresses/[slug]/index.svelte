@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
-  const load: Load = async ({ page, fetch, session, stuff }) => {
+  const load: Load = async ({ page, fetch }) => {
     const url = `/search/id/${page.params.slug}.json`;
     const res = await fetch(url);
 
@@ -22,36 +22,25 @@
 </script>
 
 <script lang="ts">
-  import type { Item } from '$lib/types';
+  import type { Item, Territory } from '$lib/types';
+
+  import { divide } from '$lib/divideItems';
 
   export let items: Item[] = [];
   let maxPerTerritory = 20,
     baseName = 'TITLE';
 
-  function divide(): { title: string; items: Item[] }[] {
-    let out = [];
-    let i = 0;
-    const total = Math.ceil(items.length / maxPerTerritory);
-    while (i < total) {
-      out.push({
-        title: `${baseName} ${String.fromCharCode(97 + i).toLocaleUpperCase()}`,
-        items: items.slice(
-          Math.ceil(items.length / total) * i,
-          Math.ceil(items.length / total) * (i + 1)
-        )
-      });
-      i++;
-    }
-    return out;
-  }
-  let territorys = divide();
+  let territorys = divide(items, baseName, maxPerTerritory);
 
   let download = null;
 
   async function startDownload() {
-    territorys = divide();
+    territorys = divide(items, baseName, maxPerTerritory);
     if (download === null) {
-      download = (await import('./_makeZip')).download;
+      let makeZip = await import('$lib/makeZip');
+      download = async (territorys: Territory[]) => {
+        makeZip.downloadFile((await makeZip.generate(territorys)) as Blob, baseName);
+      };
     }
     download(territorys);
   }
@@ -63,7 +52,7 @@
 <label for="max">Max Addresses Per Territory</label>
 <input name="max" type="number" bind:value={maxPerTerritory} />
 <p>Total Addresses: {items.length} Territorys: {Math.ceil(items.length / maxPerTerritory)}</p>
-<button on:click={() => (territorys = divide())}>Update</button>
+<button on:click={() => (territorys = divide(items, baseName, maxPerTerritory))}>Update</button>
 <button on:click={startDownload}>Download</button>
 
 <br />
