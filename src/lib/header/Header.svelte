@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import logo from './CI svelte.svg';
-	import githubLogo from './GitHub-Mark-120px-plus.png';
+	import logo from '/ci-logo.svg';
+	import githubLogo from '/GitHub-Mark-120px-plus.png';
 </script>
 
 <header>
