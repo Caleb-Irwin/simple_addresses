@@ -31,8 +31,6 @@
   "type": "module",
   "dependencies": {
     "@fontsource/fira-mono": "^4.5.0",
-    "@lukeed/uuid": "^2.0.0",
-    "cookie": "^0.4.1",
     "jszip": "^3.7.1",
     "pdfmake": "^0.2.2"
   }
