@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import logo from '/ci-logo.svg';
-	import githubLogo from '/GitHub-Mark-120px-plus.png';
 </script>
 
 <header>
 	<div class="corner">
 		<a href="https://calebirwin.ca/">
-			<img src={logo} alt="Caleb Irwin" />
+			<img src="ci-logo.svg" alt="Caleb Irwin" />
 		</a>
 	</div>
 
@@ -26,7 +24,7 @@
 
 	<div class="corner">
 		<a href="https://github.com/Caleb-Irwin/simple_addresses">
-			<img src={githubLogo} alt="Github" />
+			<img src="GitHub-Mark-120px-plus.png" alt="Github" />
 		</a>
 	</div>
 </header>
