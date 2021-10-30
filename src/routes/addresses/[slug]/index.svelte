@@ -30,7 +30,7 @@
   let maxPerTerritory = 20,
     baseName = 'TITLE';
 
-  let territorys = divide(items, baseName, maxPerTerritory);
+  $: territorys = divide(items, baseName, maxPerTerritory);
 
   let download = null;
 
@@ -46,21 +46,79 @@
   }
 </script>
 
-<label for="max">Base Name</label>
-<input name="max" type="text" bind:value={baseName} />
+<div id="iholder">
+  <h2>Control Panel</h2>
+  <label for="max">Base Name</label>
+  <input name="max" type="text" bind:value={baseName} />
 
-<label for="max">Max Addresses Per Territory</label>
-<input name="max" type="number" bind:value={maxPerTerritory} />
-<p>Total Addresses: {items.length} Territorys: {Math.ceil(items.length / maxPerTerritory)}</p>
-<button on:click={() => (territorys = divide(items, baseName, maxPerTerritory))}>Update</button>
-<button on:click={startDownload}>Download</button>
+  <label for="max">Max Addresses Per Territory</label>
+  <input name="max" type="number" bind:value={maxPerTerritory} />
+
+  <button on:click={startDownload}>Download Zip</button>
+</div>
 
 <br />
-{#each territorys as territory}
-  <p>{territory.title}</p>
-  <ul>
-    {#each territory.items as item}
-      <li><strong>{item.Text}</strong> {item.Description}</li>
+<section>
+  <h2 style="margin-bottom: 0px">Preview</h2>
+  <p>
+    Total Addresses: {items.length} Territorys: {Math.ceil(
+      items.length / (maxPerTerritory < 1 ? 1 : maxPerTerritory)
+    )}
+  </p>
+  <div id="tholder">
+    {#each territorys as territory}
+      <div class="territory">
+        <h3 style="text-align: center; font-weight: bold">{territory.title}</h3>
+        <ul>
+          {#each territory.items as item}
+            <li><strong>{item.Text}</strong> {item.Description}</li>
+          {/each}
+        </ul>
+      </div>
     {/each}
-  </ul>
-{/each}
+  </div>
+</section>
+
+<style>
+  #iholder {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    min-width: 35%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  #tholder {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .territory {
+    border: 2px solid black;
+    background-color: white;
+    margin: 5px;
+    padding: 5px;
+    display: flexbox;
+    flex-grow: 1;
+  }
+
+  label {
+    text-align: center;
+    padding: 2px;
+  }
+  input,
+  button {
+    padding: 5px;
+    margin: 2px;
+  }
+  p,
+  h2 {
+    text-align: center;
+  }
+  h2 {
+    font-size: 40px;
+    margin: 10px;
+  }
+</style>

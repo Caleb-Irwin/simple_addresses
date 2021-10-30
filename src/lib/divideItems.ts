@@ -1,6 +1,9 @@
 import type { Item, Territory } from '$lib/types';
 
 export const divide = (items: Item[], baseName: string, maxPerTerritory: number): Territory[] => {
+  if (maxPerTerritory < 1) {
+    maxPerTerritory = 1;
+  }
   const out = [];
   let i = 0;
   const total = Math.ceil(items.length / maxPerTerritory);
