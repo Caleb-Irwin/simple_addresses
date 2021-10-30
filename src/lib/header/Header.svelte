@@ -5,7 +5,7 @@
 <header>
 	<div class="corner">
 		<a href="https://calebirwin.ca/">
-			<img src="ci-logo.svg" alt="Caleb Irwin" />
+			<img src="/ci-svelte.png" alt="Caleb Irwin" />
 		</a>
 	</div>
 
@@ -24,7 +24,7 @@
 
 	<div class="corner">
 		<a href="https://github.com/Caleb-Irwin/simple_addresses">
-			<img src="GitHub-Mark-120px-plus.png" alt="Github" />
+			<img src="/GitHub-Mark-120px-plus.png" alt="Github" />
 		</a>
 	</div>
 </header>

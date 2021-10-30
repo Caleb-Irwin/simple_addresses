@@ -46,6 +46,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Simple Adresses</title>
+</svelte:head>
+
 <div id="iholder">
   <h2>Control Panel</h2>
   <label for="max">Base Name</label>
