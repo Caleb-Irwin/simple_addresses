@@ -1,11 +1,12 @@
 <script context="module" lang="ts">
   import type { Load } from '@sveltejs/kit';
-  const load: Load = async ({ page, fetch }) => {
-    const url = `/search/id/${page.params.slug}.json`;
+  import type { Item } from '$lib/types';
+  const load: Load = async ({ params, fetch }) => {
+    const url = `/search/id/${params.slug}.json`;
     const res = await fetch(url);
 
     if (res.ok) {
-      let items = await res.json();
+      let items: Item[] = await res.json();
       return {
         props: {
           items
@@ -22,7 +23,7 @@
 </script>
 
 <script lang="ts">
-  import type { Item, Territory } from '$lib/types';
+  import type { Territory } from '$lib/types';
 
   import { divide } from '$lib/divideItems';
 
